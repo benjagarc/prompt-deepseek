@@ -1,12 +1,13 @@
-// app/components/PromptBuilder.tsx
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const PromptBuilder = () => {
   const [prompt, setPrompt] = useState("");
-  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<string[]>([]);
 
   const generatePrompt = async () => {
     setLoading(true);
@@ -16,7 +17,7 @@ const PromptBuilder = () => {
       body: JSON.stringify({ prompt }),
     });
     const data = await res.json();
-    setResult(data.message);
+    setMessages((prev) => [...prev, data.message]);
     setLoading(false);
     setPrompt(() => "");
   };
@@ -42,16 +43,25 @@ const PromptBuilder = () => {
           Generar Prompt
         </button>
         {loading && <p className="text-white">Generando respuesta...</p>}
-        {result && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-gray-900 text-white rounded-xl p-4 shadow mt-4 whitespace-pre-line"
-          >
-            {result}
-          </motion.div>
-        )}
+        <>
+          {messages.length > 0 &&
+            messages.map((message, index) => (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-900 text-white rounded-xl p-4 shadow mt-4 whitespace-pre-line"
+                  key={index}
+                >
+                  {message}
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message}
+                  </ReactMarkdown>
+                </motion.div>
+              </>
+            ))}
+        </>
       </div>
     </div>
   );
