@@ -36,7 +36,7 @@ const PromptBuilder = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 text-accent shadow-lg whitespace-pre-line min-h-[70vh] text-ellipsis overflow-y-auto overflow-x-hidden"
+                className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 text-accent  font-mono shadow-lg whitespace-pre-line min-h-[70vh] text-ellipsis overflow-y-auto overflow-x-hidden"
                 key={index}
               >
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
