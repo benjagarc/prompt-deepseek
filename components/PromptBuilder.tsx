@@ -24,9 +24,11 @@ const PromptBuilder = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-12 px-4">
-      <h1 className="text-3xl font-bold text-white mb-6">
+      <h1 className="text-3xl font-bold text-secondary mb-6 mt-2">
         Generador de Prompts IA
       </h1>
+      <h1 className="text-primary text-3xl font-bold">Este es rojo vino</h1>
+      <p className="text-secondary">Este es dorado claro</p>
       <div className="space-y-4">
         <textarea
           className="w-full p-2 rounded bg-gray-800 text-white"
