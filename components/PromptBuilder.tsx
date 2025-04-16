@@ -8,9 +8,11 @@ const PromptBuilder = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
+  const [record, setRecord] = useState<string[]>([]);
 
   const generatePrompt = async () => {
     setLoading(true);
+    setRecord((prev) => [...prev, prompt]);
     const res = await fetch("/api/prompt", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,6 +34,7 @@ const PromptBuilder = () => {
         {messages.length > 0 &&
           messages.map((message, index) => (
             <>
+              <p>{record[index] ?? ""}</p>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
